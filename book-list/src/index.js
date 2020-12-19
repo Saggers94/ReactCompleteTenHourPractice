@@ -1,31 +1,25 @@
+//If the import is coming from the node module than we don't need to use the path
+//we can just use the dependency name
 import React from "react";
 import ReactDom from "react-dom";
 
+//But if the import is not coming from the node module than we would need to use the
+//correct path otherwise it won't load
 //CSS
 import "./index.css";
 //set up
 
-const books = [
-  {
-    id: 1,
-    author: "Mark Manson",
-    title: "The Subtle Art of Not Giving a F*ck",
-    img: "https://m.media-amazon.com/images/I/71t4GuxLCuL._AC_UL320_.jpg",
-  },
+//If it is a named export like this case we are exporting books from books.js that has
+//an array named 'books'. so we would need to use import with the same name
 
-  {
-    id: 2,
-    author: "Amelia Hepworth and Tim Warnes",
-    title: "I Love You to the Moon and Back",
-    img: "https://m.media-amazon.com/images/I/81eB+7+CkUL._AC_UL320_.jpg",
-  },
-  {
-    id: 3,
-    author: "Toni Morrison",
-    title: "Beloved",
-    img: "https://m.media-amazon.com/images/I/613vQdXPDwL._AC_UL320_.jpg",
-  },
-];
+//If we are importing the js file than we don't need the extention like '.js' in the end
+import { books } from "./books";
+
+//If we use export default than you can name the file whatever you want so you don't need to
+// use curly braces
+import SpecificBook from "./Book";
+
+import { greeting } from "./testing/testing";
 
 // const names = ["sagar", "simmu", "parmar"];
 // const newNames = names.map((name) => {
@@ -33,6 +27,7 @@ const books = [
 // });
 
 function BookList() {
+  console.log(greeting);
   return (
     <section className="booklist">
       {books.map((book) => {
@@ -44,7 +39,7 @@ function BookList() {
         {
           /* return <Book key={book.id} book={book} />; */
         }
-        return <Book key={book.id} {...book} />;
+        return <SpecificBook key={book.id} {...book} />;
       })}
 
       {/* Example of children props */}
@@ -67,36 +62,5 @@ function BookList() {
     </section>
   );
 }
-
-const Book = (props) => {
-  // console.log(props);
-
-  //destructuring of the props object and than extracting the properties img, title, author
-  //the name of the "children props" must always be a "children"
-  // const { img, title, author, children } = props.book;
-
-  //if we use spread '...' operator before the object than we can just use simple props
-  //destructuring
-
-  const { author, title, img } = props;
-  return (
-    <article className="book">
-      <img src={img} alt="" />
-      <h1>{title}</h1>
-      <h4>{author} </h4>
-
-      {/* Here we can access children from props that is in between the tags of the component  */}
-      {/* <p>{children}</p> */}
-
-      {/* {console.log(props)} */}
-      {/* This won't work as whatever that is passed inside '{}' should return something. In this case
-      we are assigning variable 'l' to 6, so it won't work as it is not returning anything */}
-      {/* <p>{ let l = 6}</p> */}
-
-      {/* This would work as 6+6 would return 12 */}
-      {/* <p>{6 + 6}</p> */}
-    </article>
-  );
-};
 
 ReactDom.render(<BookList />, document.getElementById("root"));
