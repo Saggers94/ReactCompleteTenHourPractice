@@ -21,6 +21,8 @@ body {
 @media screen and (min-width: 768px) {
   .booklist {
     grid-template-columns: repeat(3, 1fr);
+    /* If we use this than it will cover the item height to its content */
+    /* align-items: start; */
   }
 }
 
@@ -38,4 +40,8 @@ body {
   font-size: 0.75rem;
   color: #617d98;
   margin-top: 0.25rem;
+}
+
+.book p {
+  margin-top: 0.5rem;
 }
